@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <title>도서 검색</title>
+        <style>
+            .title {
+                color: #333;
+            }
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 30px;
+                border-top: 1px solid #e4e4e4;
+                background: #fff;
+                padding: 0;
+                margin: 0;
+                
+            }
+            .footer_ {
+                text-align: center;
+                width: 100%;
+                font-size: 10px;
+                color: #666;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                padding: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h3 class="title" style="text-align: center; margin: 50px 0 37px 0">도서 정보 검색</h2>
+        <div id="search_box" style="text-align: center">
+            <input type="text" id="search_letter" name="search_letter" style="height: 22px; margin-left: 60px; outline: none" />
+            &nbsp;
+            <button id="search" style="height: 26px">Search</button>
+        </div>
+        <section>
+            <div id="contents" style="width: 50%; margin: 0 auto"></div>
+        </section>
+        <footer>
+            <div class="footer_"><span>made by minsun</span></div>
+        </footer>
+        <script>
+            const search_letter = document.querySelector("#search_letter");
+            const search_btn = document.querySelector("#search");
+            const contents_box = document.querySelector("#contents");
+            // contents_box.innerHTML = ''; // 검색할 때마다 이전 결과 초기화
+
+            search_btn.addEventListener("click", function (e) {
+                //e.preventDefault();
+                let search = search_letter.value;
+                console.log(search);
+
+                contents_box.innerHTML = "";
+
+                $.ajax({
+                    method: "GET",
+                    url: "https://dapi.kakao.com/v3/search/book",
+                    data: { query: `${search}` },
+                    headers: { Authorization: "KakaoAK dfa1a270679a26b4aa41ef24f108e988" },
+                }).done(function (res) {
+                    console.log(res);
+                    res.documents.forEach(book => {
+                        const bookElement = `
+                        <div style="margin: 20px; padding: 10px; border: 1px solid #e4e4e4; font-size: 13px; border-radius: 5px;">
+                            <img src="${book.thumbnail}" alt="책 표지" style="width: 120px;">
+                            <h3>${book.title}</h3>
+                            <p>저자: ${book.authors.join(", ")}</p>
+                            <p>출판사: ${book.publisher}</p>
+                            <p>가격: ${book.price}원</p>
+                            <p>내용: ${book.contents}</p> 
+                        </div>
+                    `;
+
+                        contents_box.innerHTML += bookElement;
+                    });
+                });
+            });
+
+            $('input').keyup(function(e) {
+                // event.preventDefault();
+                if (e.keyCode === 13) {
+                    $('#search').click();
+            }
+});
+        </script>
+    </body>
+</html>
