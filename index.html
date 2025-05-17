@@ -9,6 +9,24 @@
             .title {
                 color: #333;
             }
+            header {
+                width: 100%;
+                height: 165px;
+            }
+            .header_ {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 165px;
+                background: #fff;
+                padding: 0;
+                margin: 0;
+            }
+            section {
+                margin: 0;
+                padding: 0;
+            }
             footer {
                 position: fixed;
                 left: 0;
@@ -19,7 +37,6 @@
                 background: #fff;
                 padding: 0;
                 margin: 0;
-                
             }
             .footer_ {
                 text-align: center;
@@ -35,12 +52,16 @@
     </head>
 
     <body>
-        <h3 class="title" style="text-align: center; margin: 50px 0 37px 0">도서 정보 검색</h2>
-        <div id="search_box" style="text-align: center">
-            <input type="text" id="search_letter" name="search_letter" style="height: 22px; margin-left: 60px; outline: none" />
-            &nbsp;
-            <button id="search" style="height: 26px">Search</button>
-        </div>
+        <header>
+            <div class="header_">
+                <h3 class="title" style="text-align: center; margin: 50px 0 37px 0">도서 정보 검색</h3>
+                <div id="search_box" style="text-align: center">
+                    <input type="text" id="search_letter" name="search_letter" style="width: 255px; height: 22px; margin-left: 60px; outline: none" />
+                    &nbsp;
+                    <button id="search" style="height: 26px">Search</button>
+                </div>
+            </div>
+        </header>
         <section>
             <div id="contents" style="width: 50%; margin: 0 auto"></div>
         </section>
@@ -84,12 +105,12 @@
                 });
             });
 
-            $('input').keyup(function(e) {
+            $("input").keyup(function (e) {
                 // event.preventDefault();
                 if (e.keyCode === 13) {
-                    $('#search').click();
-            }
-});
+                    $("#search").click();
+                }
+            });
         </script>
     </body>
 </html>
