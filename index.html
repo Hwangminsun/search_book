@@ -11,21 +11,26 @@
             }
             header {
                 width: 100%;
-                height: 165px;
+                height: 155px;
             }
             .header_ {
                 position: fixed;
                 left: 0;
                 top: 0;
                 width: 100%;
-                height: 165px;
+                height: 155px;
                 background: #fff;
                 padding: 0;
                 margin: 0;
             }
             section {
+                width: 100%;
+                height: 100%;
                 margin: 0;
-                padding: 0;
+            }
+            section #contents {
+                width: 100%;
+                padding-bottom: 25px;
             }
             footer {
                 position: fixed;
@@ -90,7 +95,7 @@
                     console.log(res);
                     res.documents.forEach(book => {
                         const bookElement = `
-                        <div style="margin: 20px; padding: 10px; border: 1px solid #e4e4e4; font-size: 13px; border-radius: 5px;">
+                        <div style="margin: 20px; padding: 10px; border: 1px solid #999; font-size: 13px; border-radius: 5px;">
                             <img src="${book.thumbnail}" alt="책 표지" style="width: 120px;">
                             <h3>${book.title}</h3>
                             <p>저자: ${book.authors.join(", ")}</p>
